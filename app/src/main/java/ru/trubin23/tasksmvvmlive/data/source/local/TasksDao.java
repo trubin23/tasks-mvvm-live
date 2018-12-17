@@ -1,4 +1,4 @@
-package ru.trubin23.tasksmvvmlive.data.local;
+package ru.trubin23.tasksmvvmlive.data.source.local;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;

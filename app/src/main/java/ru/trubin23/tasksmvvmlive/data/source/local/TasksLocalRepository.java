@@ -1,4 +1,4 @@
-package ru.trubin23.tasksmvvmlive.data.local;
+package ru.trubin23.tasksmvvmlive.data.source.local;
 
 import android.support.annotation.NonNull;
 

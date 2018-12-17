@@ -1,11 +1,12 @@
-package ru.trubin23.tasksmvvmlive.data;
+package ru.trubin23.tasksmvvmlive.data.source;
 
 import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import ru.trubin23.tasksmvvmlive.data.cache.TasksCacheDataSource;
-import ru.trubin23.tasksmvvmlive.data.local.TasksLocalDataSource;
+import ru.trubin23.tasksmvvmlive.data.Task;
+import ru.trubin23.tasksmvvmlive.data.source.cache.TasksCacheDataSource;
+import ru.trubin23.tasksmvvmlive.data.source.local.TasksLocalDataSource;
 
 
 public class TasksRepository implements TasksMainDataSource {

@@ -1,4 +1,4 @@
-package ru.trubin23.tasksmvvmlive.data;
+package ru.trubin23.tasksmvvmlive.data.source;
 
 public interface TasksMainDataSource extends TasksDataSource {
 

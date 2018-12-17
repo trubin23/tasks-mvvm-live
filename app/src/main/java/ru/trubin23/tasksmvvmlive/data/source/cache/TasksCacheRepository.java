@@ -1,4 +1,4 @@
-package ru.trubin23.tasksmvvmlive.data.cache;
+package ru.trubin23.tasksmvvmlive.data.source.cache;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

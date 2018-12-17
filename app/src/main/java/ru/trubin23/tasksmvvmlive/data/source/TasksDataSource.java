@@ -1,8 +1,10 @@
-package ru.trubin23.tasksmvvmlive.data;
+package ru.trubin23.tasksmvvmlive.data.source;
 
 import android.support.annotation.NonNull;
 
 import java.util.List;
+
+import ru.trubin23.tasksmvvmlive.data.Task;
 
 public interface TasksDataSource {
 
