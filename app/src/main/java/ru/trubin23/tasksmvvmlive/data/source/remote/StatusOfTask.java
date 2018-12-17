@@ -1,4 +1,4 @@
-package ru.trubin23.tasksmvvmlive.data.source.network;
+package ru.trubin23.tasksmvvmlive.data.source.remote;
 
 import android.support.annotation.NonNull;
 
