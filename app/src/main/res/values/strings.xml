@@ -4,4 +4,7 @@
     <string name="menu_all">All</string>
     <string name="menu_active">Active</string>
     <string name="menu_completed">Completed</string>
+
+    <string name="statistics">Statistics</string>
+    <string name="task_list">Task list</string>
 </resources>
