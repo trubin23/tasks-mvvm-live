@@ -1,9 +1,11 @@
 package ru.trubin23.tasksmvvmlive.tasks;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -11,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import ru.trubin23.tasksmvvmlive.R;
+import ru.trubin23.tasksmvvmlive.ViewModelFactory;
 import ru.trubin23.tasksmvvmlive.addedittask.AddEditTaskActivity;
 import ru.trubin23.tasksmvvmlive.statistics.StatisticsActivity;
 import ru.trubin23.tasksmvvmlive.taskdetail.TaskDetailActivity;
@@ -33,6 +36,15 @@ public class TasksActivity extends AppCompatActivity
         setupToolbar();
 
         setupNavigationDrawer();
+    }
+
+    public static TasksViewModel obtainViewModel(FragmentActivity activity){
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
+
+        TasksViewModel viewModel =
+                ViewModelProviders.of(activity, factory).get(TasksViewModel.class);
+
+        return viewModel;
     }
 
     private void setupToolbar() {
