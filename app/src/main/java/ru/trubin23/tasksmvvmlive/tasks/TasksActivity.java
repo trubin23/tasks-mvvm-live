@@ -17,6 +17,7 @@ import ru.trubin23.tasksmvvmlive.ViewModelFactory;
 import ru.trubin23.tasksmvvmlive.addedittask.AddEditTaskActivity;
 import ru.trubin23.tasksmvvmlive.statistics.StatisticsActivity;
 import ru.trubin23.tasksmvvmlive.taskdetail.TaskDetailActivity;
+import ru.trubin23.tasksmvvmlive.util.ActivityUtils;
 
 public class TasksActivity extends AppCompatActivity
         implements TaskItemNavigator, TasksNavigator {
@@ -36,15 +37,25 @@ public class TasksActivity extends AppCompatActivity
         setupToolbar();
 
         setupNavigationDrawer();
+
+        setupViewFragment();
     }
 
     public static TasksViewModel obtainViewModel(FragmentActivity activity){
         ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
 
-        TasksViewModel viewModel =
-                ViewModelProviders.of(activity, factory).get(TasksViewModel.class);
+        return ViewModelProviders.of(activity, factory).get(TasksViewModel.class);
+    }
 
-        return viewModel;
+    private void setupViewFragment(){
+        TasksFragment tasksFragment =
+                (TasksFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+
+        if (tasksFragment == null){
+            tasksFragment = TasksFragment.getInstance();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    tasksFragment, R.id.contentFrame);
+        }
     }
 
     private void setupToolbar() {
