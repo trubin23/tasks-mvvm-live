@@ -1,5 +1,6 @@
 package ru.trubin23.tasksmvvmlive.tasks;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,6 +40,16 @@ public class TasksActivity extends AppCompatActivity
         setupNavigationDrawer();
 
         setupViewFragment();
+
+        mViewModel = obtainViewModel(this);
+
+        mViewModel.getOpenTaskEvent().observe(this, taskId -> {
+            if (taskId != null){
+                openTaskDetails(taskId);
+            }
+        });
+
+        mViewModel.getNewTaskEvent().observe(this, aVoid -> addNewTask());
     }
 
     public static TasksViewModel obtainViewModel(FragmentActivity activity){

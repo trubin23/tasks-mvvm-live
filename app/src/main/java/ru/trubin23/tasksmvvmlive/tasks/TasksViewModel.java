@@ -5,11 +5,16 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import ru.trubin23.tasksmvvmlive.SingleLiveEvent;
 import ru.trubin23.tasksmvvmlive.data.source.TasksRepository;
 
 public class TasksViewModel extends AndroidViewModel {
 
     private final Context mContext;
+
+    private SingleLiveEvent<String> mOpenTaskEvent = new SingleLiveEvent<>();
+
+    private SingleLiveEvent<Void> mNewTaskEvent = new SingleLiveEvent<>();
 
     private final TasksRepository mTasksRepository;
 
@@ -22,5 +27,13 @@ public class TasksViewModel extends AndroidViewModel {
 
     void handleActivityResult(int requestCode, int resultCode) {
 
+    }
+
+    SingleLiveEvent<String> getOpenTaskEvent(){
+        return mOpenTaskEvent;
+    }
+
+    SingleLiveEvent<Void> getNewTaskEvent(){
+        return mNewTaskEvent;
     }
 }

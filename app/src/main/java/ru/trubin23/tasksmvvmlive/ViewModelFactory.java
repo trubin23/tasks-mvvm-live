@@ -34,7 +34,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass){
-        if (modelClass.isAssignableFrom(TasksActivity.class)){
+        if (modelClass.isAssignableFrom(TasksViewModel.class)){
             //noinspection unchecked
             return (T) new TasksViewModel(mApplication, mTasksRepository);
         }
