@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -10,9 +11,12 @@
             type="ru.trubin23.tasksmvvmlive.tasks.TasksViewModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ru.trubin23.tasksmvvmlive.ScrollChildSwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:onRefresh="@{viewmodel}"
+        app:refreshing="@{viewmodel.mDataLoading}">
 
-    </android.support.constraint.ConstraintLayout>
+    </ru.trubin23.tasksmvvmlive.ScrollChildSwipeRefreshLayout>
 </layout>

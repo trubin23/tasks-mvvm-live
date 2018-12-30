@@ -3,6 +3,7 @@ package ru.trubin23.tasksmvvmlive.tasks;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.content.Context;
+import android.databinding.ObservableBoolean;
 import android.support.annotation.NonNull;
 
 import ru.trubin23.tasksmvvmlive.SingleLiveEvent;
@@ -11,6 +12,8 @@ import ru.trubin23.tasksmvvmlive.data.source.TasksRepository;
 public class TasksViewModel extends AndroidViewModel {
 
     private final Context mContext;
+
+    public final ObservableBoolean mDataLoading = new ObservableBoolean(false);
 
     private SingleLiveEvent<String> mOpenTaskEvent = new SingleLiveEvent<>();
 
@@ -35,5 +38,9 @@ public class TasksViewModel extends AndroidViewModel {
 
     SingleLiveEvent<Void> getNewTaskEvent(){
         return mNewTaskEvent;
+    }
+
+    public void loadTasks(boolean forceUpdate) {
+
     }
 }
