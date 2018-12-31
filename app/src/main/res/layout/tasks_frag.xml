@@ -18,5 +18,23 @@
         android:onRefresh="@{viewmodel}"
         app:refreshing="@{viewmodel.mDataLoading}">
 
+        <LinearLayout
+            android:id="@+id/tasksLL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="@{viewmodel.mEmpty ? View.GONE : View.VISIBLE}">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/noTasks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@{viewmodel.mEmpty ? View.VISIBLE : View.GONE}">
+
+        </LinearLayout>
+
     </ru.trubin23.tasksmvvmlive.ScrollChildSwipeRefreshLayout>
 </layout>

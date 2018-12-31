@@ -15,6 +15,8 @@ public class TasksViewModel extends AndroidViewModel {
 
     public final ObservableBoolean mDataLoading = new ObservableBoolean(false);
 
+    public final ObservableBoolean mEmpty = new ObservableBoolean(false);
+
     private SingleLiveEvent<String> mOpenTaskEvent = new SingleLiveEvent<>();
 
     private SingleLiveEvent<Void> mNewTaskEvent = new SingleLiveEvent<>();
@@ -32,11 +34,11 @@ public class TasksViewModel extends AndroidViewModel {
 
     }
 
-    SingleLiveEvent<String> getOpenTaskEvent(){
+    SingleLiveEvent<String> getOpenTaskEvent() {
         return mOpenTaskEvent;
     }
 
-    SingleLiveEvent<Void> getNewTaskEvent(){
+    SingleLiveEvent<Void> getNewTaskEvent() {
         return mNewTaskEvent;
     }
 

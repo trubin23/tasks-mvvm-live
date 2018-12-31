@@ -4,6 +4,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.List;
+
+import ru.trubin23.tasksmvvmlive.data.Task;
+
 public class TasksAdapter extends BaseAdapter {
 
     @Override
@@ -24,5 +28,9 @@ public class TasksAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         return null;
+    }
+
+    void replaceData(List<Task> items) {
+
     }
 }
