@@ -3,15 +3,24 @@ package ru.trubin23.tasksmvvmlive.tasks;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.content.Context;
+import android.databinding.Observable;
+import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
+import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
 
 import ru.trubin23.tasksmvvmlive.SingleLiveEvent;
+import ru.trubin23.tasksmvvmlive.data.Task;
 import ru.trubin23.tasksmvvmlive.data.source.TasksRepository;
 
 public class TasksViewModel extends AndroidViewModel {
 
     private final Context mContext;
+
+    public final ObservableList<Task> mItems = new ObservableArrayList<>();
+
+    public final ObservableField<String> mCurrentFilteringLabel = new ObservableField<>();
 
     public final ObservableBoolean mDataLoading = new ObservableBoolean(false);
 

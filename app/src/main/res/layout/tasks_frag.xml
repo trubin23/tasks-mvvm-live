@@ -25,6 +25,19 @@
             android:orientation="vertical"
             android:visibility="@{viewmodel.mEmpty ? View.GONE : View.VISIBLE}">
 
+            <TextView
+                android:id="@+id/filteringLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:layout_margin="@dimen/filtering_label_margin"
+                android:text="@{viewmodel.mCurrentFilteringLabel}"/>
+
+            <ListView
+                android:id="@+id/tasks_list"
+                app:items="@{viewmodel.mItems}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
