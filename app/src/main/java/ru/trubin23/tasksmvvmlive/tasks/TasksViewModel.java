@@ -8,7 +8,9 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 
 import ru.trubin23.tasksmvvmlive.R;
 import ru.trubin23.tasksmvvmlive.SingleLiveEvent;
@@ -55,34 +57,39 @@ public class TasksViewModel extends AndroidViewModel {
         setFiltering(TasksFilterType.ALL_TASKS);
     }
 
-    private void setFiltering(TasksFilterType requestType) {
+    void setFiltering(TasksFilterType requestType) {
         mCurrentFiltering = requestType;
 
         switch (mCurrentFiltering) {
             case ALL_TASKS:
-                mCurrentFilteringLabel.set(mContext.getString(R.string.label_all));
-                mNoTasksLabel.set(mContext.getString(R.string.no_tasks_all));
-                mNoTaskIconRes.set(mContext.getResources().getDrawable(
-                        R.drawable.ic_assignment));
-                mTasksAddViewVisible.set(true);
+                updateFilterType(R.string.label_all, R.string.no_tasks_all,
+                        R.drawable.ic_assignment, true);
                 break;
 
             case ACTIVE_TASKS:
-                mCurrentFilteringLabel.set(mContext.getString(R.string.label_active));
-                mNoTasksLabel.set(mContext.getString(R.string.no_tasks_active));
-                mNoTaskIconRes.set(mContext.getResources().getDrawable(
-                        R.drawable.ic_check_circle));
-                mTasksAddViewVisible.set(false);
+                updateFilterType(R.string.label_active, R.string.no_tasks_active,
+                        R.drawable.ic_check_circle, false);
                 break;
 
             case COMPLETED_TASKS:
-                mCurrentFilteringLabel.set(mContext.getString(R.string.label_completed));
-                mNoTasksLabel.set(mContext.getString(R.string.no_tasks_completed));
-                mNoTaskIconRes.set(mContext.getResources().getDrawable(
-                        R.drawable.ic_verified_user));
-                mTasksAddViewVisible.set(false);
+                updateFilterType(R.string.label_completed, R.string.no_tasks_completed,
+                        R.drawable.ic_verified_user, false);
                 break;
         }
+    }
+
+    private void updateFilterType(
+            @StringRes int filteringLabelStringId, @StringRes int noTasksLabelStringId,
+            @DrawableRes int noTaskIconDrawableId, boolean tasksAddViewVisible) {
+
+        mCurrentFilteringLabel.set(mContext.getString(filteringLabelStringId));
+        mNoTasksLabel.set(mContext.getString(noTasksLabelStringId));
+        mNoTaskIconRes.set(mContext.getResources().getDrawable(noTaskIconDrawableId));
+        mTasksAddViewVisible.set(tasksAddViewVisible);
+    }
+
+    public void loadTasks(boolean forceUpdate) {
+
     }
 
     void handleActivityResult(int requestCode, int resultCode) {
@@ -97,11 +104,11 @@ public class TasksViewModel extends AndroidViewModel {
         return mNewTaskEvent;
     }
 
-    public void loadTasks(boolean forceUpdate) {
-
-    }
-
     public void addNewTask() {
         mNewTaskEvent.call();
+    }
+
+    void clearCompletedTasks() {
+
     }
 }

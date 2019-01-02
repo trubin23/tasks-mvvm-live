@@ -9,6 +9,10 @@
     <string name="no_tasks_completed">You have no completed tasks!</string>
     <string name="no_tasks_all">You have no tasks!</string>
 
+    <string name="menu_filter">Filter</string>
+    <string name="menu_clear">Clear completed</string>
+    <string name="menu_refresh">Refresh</string>
+
     <string name="menu_all">All</string>
     <string name="menu_active">Active</string>
     <string name="menu_completed">Completed</string>

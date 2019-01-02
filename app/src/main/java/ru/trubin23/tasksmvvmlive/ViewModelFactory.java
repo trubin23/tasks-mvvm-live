@@ -3,6 +3,7 @@ package ru.trubin23.tasksmvvmlive;
 import android.app.Application;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
+import android.support.annotation.NonNull;
 
 import ru.trubin23.tasksmvvmlive.data.source.TasksRepository;
 import ru.trubin23.tasksmvvmlive.tasks.TasksViewModel;
@@ -32,8 +33,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         mTasksRepository = repository;
     }
 
+    @NonNull
     @Override
-    public <T extends ViewModel> T create(Class<T> modelClass) {
+    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(TasksViewModel.class)) {
             //noinspection unchecked
             return (T) new TasksViewModel(mApplication, mTasksRepository);
