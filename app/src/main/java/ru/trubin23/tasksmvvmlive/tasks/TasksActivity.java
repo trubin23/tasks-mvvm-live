@@ -1,6 +1,5 @@
 package ru.trubin23.tasksmvvmlive.tasks;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
 import ru.trubin23.tasksmvvmlive.R;
 import ru.trubin23.tasksmvvmlive.ViewModelFactory;
 import ru.trubin23.tasksmvvmlive.addedittask.AddEditTaskActivity;

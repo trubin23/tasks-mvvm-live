@@ -3,11 +3,11 @@ package ru.trubin23.tasksmvvmlive.tasks;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.content.Context;
-import android.databinding.Observable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
 import ru.trubin23.tasksmvvmlive.SingleLiveEvent;
@@ -20,11 +20,17 @@ public class TasksViewModel extends AndroidViewModel {
 
     public final ObservableList<Task> mItems = new ObservableArrayList<>();
 
-    public final ObservableField<String> mCurrentFilteringLabel = new ObservableField<>();
-
     public final ObservableBoolean mDataLoading = new ObservableBoolean(false);
 
+    public final ObservableField<String> mCurrentFilteringLabel = new ObservableField<>();
+
+    public final ObservableField<String> mNoTasksLabel = new ObservableField<>();
+
+    public final ObservableField<Drawable> mNoTaskIconRes = new ObservableField<>();
+
     public final ObservableBoolean mEmpty = new ObservableBoolean(false);
+
+    public final ObservableBoolean mTasksAddViewVisible = new ObservableBoolean();
 
     private SingleLiveEvent<String> mOpenTaskEvent = new SingleLiveEvent<>();
 
@@ -53,5 +59,9 @@ public class TasksViewModel extends AndroidViewModel {
 
     public void loadTasks(boolean forceUpdate) {
 
+    }
+
+    public void addNewTask(){
+        mNewTaskEvent.call();
     }
 }

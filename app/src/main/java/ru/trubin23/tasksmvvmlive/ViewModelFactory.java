@@ -3,8 +3,8 @@ package ru.trubin23.tasksmvvmlive;
 import android.app.Application;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
+
 import ru.trubin23.tasksmvvmlive.data.source.TasksRepository;
-import ru.trubin23.tasksmvvmlive.tasks.TasksActivity;
 import ru.trubin23.tasksmvvmlive.tasks.TasksViewModel;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {

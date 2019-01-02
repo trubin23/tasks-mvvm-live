@@ -18,36 +18,70 @@
         android:onRefresh="@{viewmodel}"
         app:refreshing="@{viewmodel.mDataLoading}">
 
-        <LinearLayout
-            android:id="@+id/tasksLL"
+        <RelativeLayout
+            android:id="@+id/tasksContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="@{viewmodel.mEmpty ? View.GONE : View.VISIBLE}">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/filteringLabel"
+            <LinearLayout
+                android:id="@+id/tasksLL"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="@{viewmodel.mEmpty ? View.GONE : View.VISIBLE}">
+
+                <TextView
+                    android:id="@+id/filteringLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/filtering_label_margin"
+                    android:gravity="center_vertical"
+                    android:text="@{viewmodel.mCurrentFilteringLabel}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <ListView
+                    android:id="@+id/tasks_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:items="@{viewmodel.mItems}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/noTasks"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:layout_margin="@dimen/filtering_label_margin"
-                android:text="@{viewmodel.mCurrentFilteringLabel}"/>
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:visibility="@{viewmodel.mEmpty ? View.VISIBLE : View.GONE}">
 
-            <ListView
-                android:id="@+id/tasks_list"
-                app:items="@{viewmodel.mItems}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/noTasksIcon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:src="@{viewmodel.mNoTaskIconRes}" />
 
-        <LinearLayout
-            android:id="@+id/noTasks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="@{viewmodel.mEmpty ? View.VISIBLE : View.GONE}">
+                <TextView
+                    android:id="@+id/noTasksMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{viewmodel.mNoTasksLabel}" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/noTasksAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/touch_feedback"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewmodel.addNewTask()}"
+                    android:text="@string/no_tasks_add"
+                    android:visibility="@{viewmodel.mTasksAddViewVisible ? View.VISIBLE : View.GONE}" />
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </ru.trubin23.tasksmvvmlive.ScrollChildSwipeRefreshLayout>
 </layout>

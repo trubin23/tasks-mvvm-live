@@ -7,4 +7,6 @@
 
     <string name="statistics">Statistics</string>
     <string name="task_list">Task list</string>
+
+    <string name="no_tasks_add">Add a task item</string>
 </resources>
