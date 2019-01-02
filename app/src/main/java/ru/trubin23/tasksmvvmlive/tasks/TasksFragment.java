@@ -3,6 +3,7 @@ package ru.trubin23.tasksmvvmlive.tasks;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,10 +11,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 
 import ru.trubin23.tasksmvvmlive.R;
+import ru.trubin23.tasksmvvmlive.SnackbarMessage;
 import ru.trubin23.tasksmvvmlive.databinding.TasksFragBinding;
+import ru.trubin23.tasksmvvmlive.util.SnackbarUtils;
 
 public class TasksFragment extends Fragment {
 
@@ -21,7 +25,7 @@ public class TasksFragment extends Fragment {
 
     private TasksViewModel mTasksViewModel;
 
-    private TasksAdapter mAdapter;
+    private TasksAdapter mTasksAdapter;
 
     public static TasksFragment getInstance() {
         return new TasksFragment();
@@ -94,5 +98,43 @@ public class TasksFragment extends Fragment {
         });
 
         popupMenu.show();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        setupSnackbar();
+
+        setupFab();
+
+        setupListAdapter();
+
+        setupRefreshLayout();
+    }
+
+    private void setupSnackbar() {
+        mTasksViewModel.getSnackbarMessage().observe(this,
+                (SnackbarMessage.ShackbarObserver) snackbarMessageResId ->
+                        SnackbarUtils.showSnackbar(getView(), getString(snackbarMessageResId)));
+    }
+
+    private void setupFab() {
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_task);
+
+        fab.setOnClickListener(v -> mTasksViewModel.addNewTask());
+
+    }
+
+    private void setupListAdapter() {
+        ListView listView = mTasksFragBinding.tasksList;
+
+        mTasksAdapter = new TasksAdapter((TasksActivity) getActivity(), mTasksViewModel);
+
+        listView.setAdapter(mTasksAdapter);
+    }
+
+    private void setupRefreshLayout() {
+
     }
 }

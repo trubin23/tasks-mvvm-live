@@ -96,6 +96,10 @@ public class TasksViewModel extends AndroidViewModel {
 
     }
 
+    SnackbarMessage getSnackbarMessage() {
+        return mSnackbarText;
+    }
+
     SingleLiveEvent<String> getOpenTaskEvent() {
         return mOpenTaskEvent;
     }

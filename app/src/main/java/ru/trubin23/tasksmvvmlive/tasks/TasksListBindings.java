@@ -13,7 +13,7 @@ public class TasksListBindings {
     public static void setItems(ListView listView, List<Task> items){
         TasksAdapter adapter = (TasksAdapter) listView.getAdapter();
         if (adapter != null){
-            adapter.replaceData(items);
+            adapter.setData(items);
         }
     }
 }

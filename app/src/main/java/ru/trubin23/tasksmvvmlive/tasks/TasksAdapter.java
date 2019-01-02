@@ -10,27 +10,38 @@ import ru.trubin23.tasksmvvmlive.data.Task;
 
 public class TasksAdapter extends BaseAdapter {
 
-    @Override
-    public int getCount() {
-        return 0;
+    private TasksViewModel mTasksViewModel;
+
+    List<Task> mTasks;
+
+    TasksAdapter(List<Task> tasks,
+                 TasksViewModel tasksViewModel) {
+        mTasksViewModel = tasksViewModel;
+        setData(tasks);
+    }
+
+    void setData(List<Task> items) {
+        mTasks = items;
+        notifyDataSetChanged();
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public int getCount() {
+        return mTasks != null ? mTasks.size() : 0;
+    }
+
+    @Override
+    public Task getItem(int position) {
+        return mTasks.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         return null;
-    }
-
-    void replaceData(List<Task> items) {
-
     }
 }
