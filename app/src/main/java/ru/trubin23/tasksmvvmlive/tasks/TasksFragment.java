@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
+import java.util.ArrayList;
+
 import ru.trubin23.tasksmvvmlive.R;
 import ru.trubin23.tasksmvvmlive.SnackbarMessage;
 import ru.trubin23.tasksmvvmlive.databinding.TasksFragBinding;
@@ -129,12 +131,12 @@ public class TasksFragment extends Fragment {
     private void setupListAdapter() {
         ListView listView = mTasksFragBinding.tasksList;
 
-        mTasksAdapter = new TasksAdapter((TasksActivity) getActivity(), mTasksViewModel);
+        mTasksAdapter = new TasksAdapter(new ArrayList<>(0), mTasksViewModel);
 
         listView.setAdapter(mTasksAdapter);
     }
 
     private void setupRefreshLayout() {
-
+        //ListView listView = mTasksFragBinding.tasksList;
     }
 }

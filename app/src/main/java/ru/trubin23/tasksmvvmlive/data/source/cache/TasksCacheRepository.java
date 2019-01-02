@@ -46,7 +46,7 @@ public class TasksCacheRepository implements TasksCacheDataSource {
     mCachedTask.clear();
 
     for (Task task : tasks) {
-      mCachedTask.put(task.getTaskId(), task);
+      mCachedTask.put(task.getId(), task);
     }
     mCacheIsDirty = false;
   }
@@ -81,7 +81,7 @@ public class TasksCacheRepository implements TasksCacheDataSource {
     if (mCachedTask == null) {
       mCachedTask = new LinkedHashMap<>();
     }
-    mCachedTask.put(task.getTaskId(), task);
+    mCachedTask.put(task.getId(), task);
   }
 
   @Override
@@ -96,7 +96,7 @@ public class TasksCacheRepository implements TasksCacheDataSource {
     Task task = getTaskById(taskId);
     if (task != null){
       Task cacheTask = new Task(task.getTitle(), task.getDescription(),
-          task.getTaskId(), completed);
+          task.getId(), completed);
       addTask(cacheTask);
     }
   }

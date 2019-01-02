@@ -17,8 +17,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"
-        android:orientation="horizontal">
+        android:background="@drawable/touch_feedback"
+        android:paddingBottom="@dimen/list_item_padding_vertical"
+        android:paddingTop="@dimen/list_item_padding_vertical"
+        android:paddingLeft="@dimen/list_item_padding_horizontal"
+        android:paddingRight="@dimen/list_item_padding_horizontal"
+        android:orientation="horizontal"
+        android:onClick="@{() -> listener.onTaskClicked(task)}">
 
+        <CheckBox
+            android:id="@+id/complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="@{(view) -> listener.onCompleteChanged(task, view)}"
+            android:checked="@{task.completed}" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/list_item_padding_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:text="@{task.titleForList}"/>
     </LinearLayout>
 
 </layout>

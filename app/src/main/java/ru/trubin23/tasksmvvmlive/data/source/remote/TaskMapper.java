@@ -17,7 +17,7 @@ class TaskMapper {
 
     @NonNull
     static NetworkTask taskToNetworkTask(@NonNull Task task) {
-        return new NetworkTask(task.getTaskId(), task.getTitle(),
+        return new NetworkTask(task.getId(), task.getTitle(),
                 task.getDescription(), task.isCompleted());
     }
 

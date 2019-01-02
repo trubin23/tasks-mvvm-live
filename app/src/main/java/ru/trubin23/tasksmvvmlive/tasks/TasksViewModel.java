@@ -115,4 +115,8 @@ public class TasksViewModel extends AndroidViewModel {
     void clearCompletedTasks() {
 
     }
+
+    void completeTask(Task task, boolean completed) {
+
+    }
 }

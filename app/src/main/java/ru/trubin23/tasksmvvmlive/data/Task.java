@@ -48,7 +48,7 @@ public final class Task {
     }
 
     @NonNull
-    public String getTaskId() {
+    public String getId() {
         return mTaskId;
     }
 
@@ -60,6 +60,14 @@ public final class Task {
     @NonNull
     public String getDescription() {
         return mDescription;
+    }
+
+    public String getTitleForList() {
+        if (!Strings.isNullOrEmpty(mTitle)){
+            return mTitle;
+        } else {
+            return mDescription;
+        }
     }
 
     public boolean isCompleted() {

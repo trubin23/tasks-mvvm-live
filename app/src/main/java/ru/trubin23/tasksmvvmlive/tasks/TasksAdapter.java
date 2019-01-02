@@ -1,12 +1,16 @@
 package ru.trubin23.tasksmvvmlive.tasks;
 
+import android.databinding.DataBindingUtil;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 
 import java.util.List;
 
 import ru.trubin23.tasksmvvmlive.data.Task;
+import ru.trubin23.tasksmvvmlive.databinding.TaskItemBinding;
 
 public class TasksAdapter extends BaseAdapter {
 
@@ -42,6 +46,32 @@ public class TasksAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        return null;
+        TaskItemBinding taskItemBinding;
+        if (view == null){
+            LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+            taskItemBinding = TaskItemBinding.inflate(inflater, viewGroup, false);
+        } else {
+            taskItemBinding = DataBindingUtil.getBinding(view);
+        }
+
+        TaskItemUserActionsListener listener = new TaskItemUserActionsListener() {
+            @Override
+            public void onCompleteChanged(Task task, View view) {
+                boolean checked = ((CheckBox) view).isChecked();
+                mTasksViewModel.completeTask(task, checked);
+            }
+
+            @Override
+            public void onTaskClicked(Task task) {
+                mTasksViewModel.getOpenTaskEvent().setValue(task.getId());
+            }
+        };
+
+        taskItemBinding.setTask(getItem(position));
+
+        taskItemBinding.setListener(listener);
+
+        taskItemBinding.executePendingBindings();
+        return taskItemBinding.getRoot();
     }
 }
