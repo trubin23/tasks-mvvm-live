@@ -15,26 +15,26 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private final TasksRepository mTasksRepository;
 
-    public static ViewModelFactory getInstance(Application application){
-        if (INSTANCE == null){
-            synchronized (ViewModelFactory.class){
-                if (INSTANCE == null){
+    public static ViewModelFactory getInstance(Application application) {
+        if (INSTANCE == null) {
+            synchronized (ViewModelFactory.class) {
+                if (INSTANCE == null) {
                     INSTANCE = new ViewModelFactory(application,
-                            null);
+                            Injection.provideTasksRepository(application.getApplicationContext()));
                 }
             }
         }
         return INSTANCE;
     }
 
-    private ViewModelFactory(Application application, TasksRepository repository){
+    private ViewModelFactory(Application application, TasksRepository repository) {
         mApplication = application;
         mTasksRepository = repository;
     }
 
     @Override
-    public <T extends ViewModel> T create(Class<T> modelClass){
-        if (modelClass.isAssignableFrom(TasksViewModel.class)){
+    public <T extends ViewModel> T create(Class<T> modelClass) {
+        if (modelClass.isAssignableFrom(TasksViewModel.class)) {
             //noinspection unchecked
             return (T) new TasksViewModel(mApplication, mTasksRepository);
         }
