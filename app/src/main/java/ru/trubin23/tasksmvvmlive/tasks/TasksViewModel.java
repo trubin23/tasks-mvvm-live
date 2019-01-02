@@ -15,8 +15,10 @@ import android.support.annotation.StringRes;
 import ru.trubin23.tasksmvvmlive.R;
 import ru.trubin23.tasksmvvmlive.SingleLiveEvent;
 import ru.trubin23.tasksmvvmlive.SnackbarMessage;
+import ru.trubin23.tasksmvvmlive.addedittask.AddEditTaskActivity;
 import ru.trubin23.tasksmvvmlive.data.Task;
 import ru.trubin23.tasksmvvmlive.data.source.TasksRepository;
+import ru.trubin23.tasksmvvmlive.taskdetail.TaskDetailActivity;
 
 public class TasksViewModel extends AndroidViewModel {
 
@@ -89,11 +91,28 @@ public class TasksViewModel extends AndroidViewModel {
     }
 
     public void loadTasks(boolean forceUpdate) {
+        loadTasks(forceUpdate, true);
+    }
+
+    public void loadTasks(boolean forceUpdate, boolean showLoadingUI) {
 
     }
 
     void handleActivityResult(int requestCode, int resultCode) {
+        if (TasksActivity.REQUEST_CODE_TASK_DETAIL == requestCode) {
+            if (TaskDetailActivity.DELETE_RESULT_OK == resultCode) {
 
+            }
+            if (TaskDetailActivity.EDIT_RESULT_OK == resultCode) {
+
+            }
+        }
+
+        if (TasksActivity.REQUEST_CODE_ADD_EDIT_TASK == requestCode) {
+            if (AddEditTaskActivity.ADD_EDIT_RESULT_OK == resultCode) {
+
+            }
+        }
     }
 
     SnackbarMessage getSnackbarMessage() {
@@ -113,10 +132,17 @@ public class TasksViewModel extends AndroidViewModel {
     }
 
     void clearCompletedTasks() {
-
+        mTasksRepository.clearCompletedTask();
+        mSnackbarText.setValue(R.string.completed_tasks_cleared);
+        loadTasks(false, false);
     }
 
     void completeTask(Task task, boolean completed) {
-
+        mTasksRepository.completedTask(task.getId(), completed);
+        if (completed) {
+            mSnackbarText.setValue(R.string.task_marked_complete);
+        } else {
+            mSnackbarText.setValue(R.string.task_marked_active);
+        }
     }
 }

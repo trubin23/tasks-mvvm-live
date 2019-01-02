@@ -9,6 +9,9 @@ public class TaskDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_TASK_ID = "TASK_ID";
 
+    public static final int DELETE_RESULT_OK = 1;
+    public static final int EDIT_RESULT_OK = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

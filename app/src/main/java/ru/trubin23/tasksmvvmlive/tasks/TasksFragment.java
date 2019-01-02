@@ -1,10 +1,12 @@
 package ru.trubin23.tasksmvvmlive.tasks;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +19,7 @@ import android.widget.PopupMenu;
 import java.util.ArrayList;
 
 import ru.trubin23.tasksmvvmlive.R;
+import ru.trubin23.tasksmvvmlive.ScrollChildSwipeRefreshLayout;
 import ru.trubin23.tasksmvvmlive.SnackbarMessage;
 import ru.trubin23.tasksmvvmlive.databinding.TasksFragBinding;
 import ru.trubin23.tasksmvvmlive.util.SnackbarUtils;
@@ -137,6 +140,13 @@ public class TasksFragment extends Fragment {
     }
 
     private void setupRefreshLayout() {
-        //ListView listView = mTasksFragBinding.tasksList;
+        ListView listView = mTasksFragBinding.tasksList;
+        ScrollChildSwipeRefreshLayout swipeRefreshLayout = mTasksFragBinding.refreshLayout;
+        swipeRefreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(getContext(), R.color.colorPrimary),
+                ContextCompat.getColor(getContext(), R.color.colorAccent),
+                ContextCompat.getColor(getContext(), R.color.colorPrimaryDark)
+        );
+        swipeRefreshLayout.setScrollUpChild(listView);
     }
 }
