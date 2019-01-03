@@ -12,11 +12,15 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ru.trubin23.tasksmvvmlive.R;
 import ru.trubin23.tasksmvvmlive.SingleLiveEvent;
 import ru.trubin23.tasksmvvmlive.SnackbarMessage;
 import ru.trubin23.tasksmvvmlive.addedittask.AddEditTaskActivity;
 import ru.trubin23.tasksmvvmlive.data.Task;
+import ru.trubin23.tasksmvvmlive.data.source.TasksDataSource;
 import ru.trubin23.tasksmvvmlive.data.source.TasksRepository;
 import ru.trubin23.tasksmvvmlive.taskdetail.TaskDetailActivity;
 
@@ -43,8 +47,6 @@ public class TasksViewModel extends AndroidViewModel {
     private final SnackbarMessage mSnackbarText = new SnackbarMessage();
 
     private TasksFilterType mCurrentFiltering = null;
-
-    private final ObservableBoolean mIsDataLoadingError = new ObservableBoolean();
 
     private SingleLiveEvent<String> mOpenTaskEvent = new SingleLiveEvent<>();
 
@@ -94,23 +96,71 @@ public class TasksViewModel extends AndroidViewModel {
         loadTasks(forceUpdate, true);
     }
 
-    public void loadTasks(boolean forceUpdate, boolean showLoadingUI) {
+    private void loadTasks(boolean forceUpdate, boolean showLoadingUI) {
+        if (showLoadingUI) {
+            mDataLoading.set(true);
+        }
+        if (forceUpdate) {
+            mTasksRepository.refreshTasks();
+        }
 
+        mTasksRepository.getTasks(new TasksDataSource.LoadTasksCallback() {
+            @Override
+            public void onTasksLoaded(@NonNull List<Task> tasks) {
+                List<Task> tasksForShow = new ArrayList<>();
+
+                for (Task task : tasks) {
+                    switch (mCurrentFiltering) {
+                        case ACTIVE_TASKS:
+                            if (task.isActive()) {
+                                tasksForShow.add(task);
+                            }
+                            break;
+                        case COMPLETED_TASKS:
+                            if (task.isCompleted()) {
+                                tasksForShow.add(task);
+                            }
+                            break;
+                        case ALL_TASKS:
+                            tasksForShow.add(task);
+                            break;
+                        default:
+                            tasksForShow.add(task);
+                            break;
+                    }
+                }
+
+                if (showLoadingUI) {
+                    mDataLoading.set(false);
+                }
+
+                mItems.clear();
+                mItems.addAll(tasksForShow);
+                mEmpty.set(mItems.isEmpty());
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                if (showLoadingUI) {
+                    mDataLoading.set(false);
+                }
+            }
+        });
     }
 
     void handleActivityResult(int requestCode, int resultCode) {
         if (TasksActivity.REQUEST_CODE_TASK_DETAIL == requestCode) {
             if (TaskDetailActivity.DELETE_RESULT_OK == resultCode) {
-
+                mSnackbarText.setValue(R.string.deleted_task_message);
             }
             if (TaskDetailActivity.EDIT_RESULT_OK == resultCode) {
-
+                mSnackbarText.setValue(R.string.saved_task_message);
             }
         }
 
         if (TasksActivity.REQUEST_CODE_ADD_EDIT_TASK == requestCode) {
             if (AddEditTaskActivity.ADD_EDIT_RESULT_OK == resultCode) {
-
+                mSnackbarText.setValue(R.string.added_task_message);
             }
         }
     }

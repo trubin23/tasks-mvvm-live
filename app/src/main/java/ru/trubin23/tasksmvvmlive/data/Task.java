@@ -16,7 +16,7 @@ public final class Task {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "task_id")
-    private final String mTaskId;
+    private final String mId;
 
     @NonNull
     @ColumnInfo(name = "title")
@@ -30,16 +30,16 @@ public final class Task {
     private final boolean mCompleted;
 
     public Task(@NonNull String title, @NonNull String description,
-                @NonNull String taskId, boolean completed) {
+                @NonNull String id, boolean completed) {
         mTitle = title;
         mDescription = description;
-        mTaskId = taskId;
+        mId = id;
         mCompleted = completed;
     }
 
     @Ignore
-    public Task(@NonNull String title, @NonNull String description, @NonNull String taskId) {
-        this(title, description, taskId, false);
+    public Task(@NonNull String title, @NonNull String description, @NonNull String id) {
+        this(title, description, id, false);
     }
 
     @Ignore
@@ -49,7 +49,7 @@ public final class Task {
 
     @NonNull
     public String getId() {
-        return mTaskId;
+        return mId;
     }
 
     @NonNull
@@ -63,7 +63,7 @@ public final class Task {
     }
 
     public String getTitleForList() {
-        if (!Strings.isNullOrEmpty(mTitle)){
+        if (!Strings.isNullOrEmpty(mTitle)) {
             return mTitle;
         } else {
             return mDescription;
@@ -72,6 +72,10 @@ public final class Task {
 
     public boolean isCompleted() {
         return mCompleted;
+    }
+
+    public boolean isActive() {
+        return !mCompleted;
     }
 
     public boolean isEmpty() {

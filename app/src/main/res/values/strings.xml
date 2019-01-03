@@ -26,4 +26,8 @@
 
     <string name="task_marked_complete">Task marked complete</string>
     <string name="task_marked_active">Task marked active</string>
+
+    <string name="added_task_message">Task added</string>
+    <string name="saved_task_message">Task saved</string>
+    <string name="deleted_task_message">Task was deleted</string>
 </resources>
