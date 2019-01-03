@@ -48,7 +48,7 @@ public class TasksFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return mTasksFragBinding.getRoot();
     }
 
     @Override
