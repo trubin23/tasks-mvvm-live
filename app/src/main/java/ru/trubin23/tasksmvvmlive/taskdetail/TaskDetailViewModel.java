@@ -98,4 +98,19 @@ public class TaskDetailViewModel extends AndroidViewModel {
             mSnackbarText.setValue(R.string.task_marked_active);
         }
     }
+
+    public boolean isDataAvailable(){
+        return mTask.get() != null;
+    }
+
+    public boolean isDataLoading(){
+        return mIsDataLoading;
+    }
+
+    public void onRefresh(){
+        Task task = mTask.get();
+        if (task != null){
+            start(task.getId());
+        }
+    }
 }
