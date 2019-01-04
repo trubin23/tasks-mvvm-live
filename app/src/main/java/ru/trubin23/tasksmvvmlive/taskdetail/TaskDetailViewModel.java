@@ -5,7 +5,9 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 
+import ru.trubin23.tasksmvvmlive.R;
 import ru.trubin23.tasksmvvmlive.SingleLiveEvent;
 import ru.trubin23.tasksmvvmlive.SnackbarMessage;
 import ru.trubin23.tasksmvvmlive.data.Task;
@@ -52,6 +54,48 @@ public class TaskDetailViewModel extends AndroidViewModel {
                     mIsDataLoading = false;
                 }
             });
+        }
+    }
+
+    SnackbarMessage getSnackbarMessage() {
+        return mSnackbarText;
+    }
+
+    private void showSnackbarMessage(@StringRes Integer messageResId) {
+        mSnackbarText.setValue(messageResId);
+    }
+
+    SingleLiveEvent<Void> getEditTaskCommand() {
+        return mEditTaskCommand;
+    }
+
+    void editTask() {
+        mEditTaskCommand.call();
+    }
+
+    SingleLiveEvent<Void> getDeleteTaskCommand() {
+        return mDeleteTaskCommand;
+    }
+
+    void deleteTask() {
+        Task task = mTask.get();
+        if (task != null) {
+            mTasksRepository.deleteTask(task.getId());
+            mDeleteTaskCommand.call();
+        }
+    }
+
+    void setCompleted(boolean completed) {
+        Task task = mTask.get();
+        if (mIsDataLoading || task == null) {
+            return;
+        }
+
+        mTasksRepository.completedTask(task.getId(), completed);
+        if (completed) {
+            mSnackbarText.setValue(R.string.task_marked_complete);
+        } else {
+            mSnackbarText.setValue(R.string.task_marked_active);
         }
     }
 }
