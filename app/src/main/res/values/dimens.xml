@@ -10,4 +10,6 @@
 
     <dimen name="list_item_padding_vertical">8dp</dimen>
     <dimen name="list_item_padding_horizontal">16dp</dimen>
+
+    <dimen name="activity_margin">16dp</dimen>
 </resources>

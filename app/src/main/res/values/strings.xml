@@ -30,4 +30,6 @@
     <string name="added_task_message">Task added</string>
     <string name="saved_task_message">Task saved</string>
     <string name="deleted_task_message">Task was deleted</string>
+
+    <string name="no_data">No data</string>
 </resources>
