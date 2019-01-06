@@ -18,7 +18,11 @@ public class TaskDetailViewModel extends AndroidViewModel {
 
     private final TasksRepository mTasksRepository;
 
-    public final ObservableField<Task> mTask = new ObservableField<>();
+    private final ObservableField<Task> mTask = new ObservableField<>();
+
+    public final ObservableField<String> mTitle = new ObservableField<>();
+
+    public final ObservableField<String> mDescription = new ObservableField<>();
 
     public final ObservableBoolean mCompleted = new ObservableBoolean();
 
@@ -37,24 +41,28 @@ public class TaskDetailViewModel extends AndroidViewModel {
     }
 
     public void start(String taskId) {
-        if (taskId != null) {
-            mIsDataLoading = true;
-            mTasksRepository.getTask(taskId, new TasksDataSource.GetTaskCallback() {
-
-                @Override
-                public void onTaskLoaded(@NonNull Task task) {
-                    mTask.set(task);
-                    mCompleted.set(task.isCompleted());
-                    mIsDataLoading = false;
-                }
-
-                @Override
-                public void onDataNotAvailable() {
-                    mTask.set(null);
-                    mIsDataLoading = false;
-                }
-            });
+        if (taskId == null) {
+            return;
         }
+
+        mIsDataLoading = true;
+        mTasksRepository.getTask(taskId, new TasksDataSource.GetTaskCallback() {
+
+            @Override
+            public void onTaskLoaded(@NonNull Task task) {
+                mTask.set(task);
+                mTitle.set(task.getTitle());
+                mDescription.set(task.getDescription());
+                mCompleted.set(task.isCompleted());
+                mIsDataLoading = false;
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mTask.set(null);
+                mIsDataLoading = false;
+            }
+        });
     }
 
     SnackbarMessage getSnackbarMessage() {
@@ -99,17 +107,17 @@ public class TaskDetailViewModel extends AndroidViewModel {
         }
     }
 
-    public boolean isDataAvailable(){
+    public boolean isDataAvailable() {
         return mTask.get() != null;
     }
 
-    public boolean isDataLoading(){
+    public boolean isDataLoading() {
         return mIsDataLoading;
     }
 
-    public void onRefresh(){
+    public void onRefresh() {
         Task task = mTask.get();
-        if (task != null){
+        if (task != null) {
             start(task.getId());
         }
     }

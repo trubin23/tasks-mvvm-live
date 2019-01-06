@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:onRefreshListener="@{viewmodel::onRefresh}"
-        app:refreshing="@{viewmodel.mDataLoading}">
+        app:refreshing="@{viewmodel.dataLoading}">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -38,23 +38,23 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{ViewModel.dataAvailable ? View.VISIBLE : View.GONE}">
+                android:visibility="@{viewmodel.dataAvailable ? View.VISIBLE : View.GONE}">
 
                 <CheckBox
                     android:id="@+id/task_detail_complete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="@={ViewModel.completed}"
+                    android:checked="@={viewmodel.mCompleted}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/task_detail_title"
                     android:layout_width="0dp"
-                    android:layout_height="26dp"
+                    android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@={ViewModel.mTitle}"
+                    android:text="@={viewmodel.mTitle}"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     app:layout_constraintBottom_toBottomOf="@+id/task_detail_complete"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +66,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@={ViewModel.mDescription}"
+                    android:text="@={viewmodel.mDescription}"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     app:layout_constraintEnd_toEndOf="@+id/task_detail_title"
                     app:layout_constraintStart_toStartOf="parent"
