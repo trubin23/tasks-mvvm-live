@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
 import ru.trubin23.tasksmvvmlive.data.source.TasksRepository;
+import ru.trubin23.tasksmvvmlive.taskdetail.TaskDetailViewModel;
 import ru.trubin23.tasksmvvmlive.tasks.TasksViewModel;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
@@ -39,6 +40,10 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         if (modelClass.isAssignableFrom(TasksViewModel.class)) {
             //noinspection unchecked
             return (T) new TasksViewModel(mApplication, mTasksRepository);
+        }
+        if (modelClass.isAssignableFrom(TaskDetailViewModel.class)) {
+            //noinspection unchecked
+            return (T) new TaskDetailViewModel(mApplication, mTasksRepository);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }
