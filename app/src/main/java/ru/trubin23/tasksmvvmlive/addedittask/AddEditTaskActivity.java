@@ -7,6 +7,8 @@ import ru.trubin23.tasksmvvmlive.R;
 
 public class AddEditTaskActivity extends AppCompatActivity {
 
+    public static final String EXTRA_EDIT_TASK_ID = "EDIT_TASK_ID";
+
     public static final int ADD_EDIT_RESULT_OK = 1;
 
     @Override
