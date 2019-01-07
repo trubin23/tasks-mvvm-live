@@ -9,7 +9,7 @@ import ru.trubin23.tasksmvvmlive.R;
 import ru.trubin23.tasksmvvmlive.ViewModelFactory;
 import ru.trubin23.tasksmvvmlive.tasks.TasksViewModel;
 
-public class TaskDetailActivity extends AppCompatActivity {
+public class TaskDetailActivity extends AppCompatActivity implements TaskDetailNavigator {
 
     public static final String EXTRA_TASK_ID = "TASK_ID";
 
@@ -26,5 +26,18 @@ public class TaskDetailActivity extends AppCompatActivity {
         ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
 
         return ViewModelProviders.of(activity, factory).get(TaskDetailViewModel.class);
+    }
+
+    @Override
+    public void onTaskDeleted() {
+        setResult(DELETE_RESULT_OK);
+
+        finish();
+    }
+
+    @Override
+    public void onStartEditTask() {
+        //String taskId = getIntent().getStringExtra(EXTRA_TASK_ID);
+
     }
 }
