@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
@@ -19,18 +20,18 @@ public final class Task {
     @ColumnInfo(name = "task_id")
     private final String mId;
 
-    @NonNull
+    @Nullable
     @ColumnInfo(name = "title")
     private final String mTitle;
 
-    @NonNull
+    @Nullable
     @ColumnInfo(name = "description")
     private final String mDescription;
 
     @ColumnInfo(name = "completed")
     private final boolean mCompleted;
 
-    public Task(@NonNull String title, @NonNull String description,
+    public Task(@Nullable String title, @Nullable String description,
                 @NonNull String id, boolean completed) {
         mTitle = title;
         mDescription = description;
@@ -39,12 +40,12 @@ public final class Task {
     }
 
     @Ignore
-    public Task(@NonNull String title, @NonNull String description, @NonNull String id) {
+    public Task(@Nullable String title, @Nullable String description, @NonNull String id) {
         this(title, description, id, false);
     }
 
     @Ignore
-    public Task(@NonNull String title, @NonNull String description) {
+    public Task(@Nullable String title, @Nullable String description) {
         this(title, description, UUID.randomUUID().toString(), false);
     }
 
@@ -53,16 +54,17 @@ public final class Task {
         return mId;
     }
 
-    @NonNull
+    @Nullable
     public String getTitle() {
         return mTitle;
     }
 
-    @NonNull
+    @Nullable
     public String getDescription() {
         return mDescription;
     }
 
+    @Nullable
     public String getTitleForList() {
         if (!Strings.isNullOrEmpty(mTitle)) {
             return mTitle;

@@ -7,8 +7,11 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import ru.trubin23.tasksmvvmlive.R;
 import ru.trubin23.tasksmvvmlive.SingleLiveEvent;
 import ru.trubin23.tasksmvvmlive.SnackbarMessage;
+import ru.trubin23.tasksmvvmlive.data.Task;
+import ru.trubin23.tasksmvvmlive.data.source.TasksDataSource;
 import ru.trubin23.tasksmvvmlive.data.source.TasksRepository;
 
 public class AddEditTaskViewModel extends AndroidViewModel {
@@ -41,6 +44,67 @@ public class AddEditTaskViewModel extends AndroidViewModel {
     }
 
     public void start(String taskId) {
+        if (mDataLoading.get()){
+            return;
+        }
+
+        mTaskId = taskId;
+        if (mTaskId == null){
+            mIsNewTask = true;
+            return;
+        }
+
+        if (mIsDataLoaded){
+            return;
+        }
+
+        mIsNewTask = false;
+        mDataLoading.set(true);
+
+        mTasksRepository.getTask(taskId, new TasksDataSource.GetTaskCallback() {
+            @Override
+            public void onTaskLoaded(@NonNull Task task) {
+                mTitle.set(task.getTitle());
+                mDescription.set(task.getDescription());
+                mTaskCompleted = task.isCompleted();
+                mDataLoading.set(false);
+                mIsDataLoaded = true;
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mDataLoading.set(false);
+            }
+        });
+    }
+
+    SnackbarMessage getSnackbarMessage(){
+        return mSnackbarMessage;
+    }
+
+    public SingleLiveEvent<Void> getTaskUpdate() {
+        return mTaskUpdate;
+    }
+
+    void saveTask(){
+        Task task = new Task(mTitle.get(), mDescription.get());
+        if (task.isEmpty()){
+            mSnackbarMessage.setValue(R.string.empty_task_message);
+            return;
+        }
+        if (mIsNewTask || mTaskId == null) {
+            createTask(task);
+        } else {
+            task = new Task(mTitle.get(), mDescription.get(), mTaskId, mTaskCompleted);
+            updateTask(task);
+        }
+    }
+
+    private void createTask(Task task) {
+
+    }
+
+    private void updateTask(Task task) {
 
     }
 }
