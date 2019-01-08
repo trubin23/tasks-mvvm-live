@@ -44,17 +44,17 @@ public class AddEditTaskViewModel extends AndroidViewModel {
     }
 
     public void start(String taskId) {
-        if (mDataLoading.get()){
+        if (mDataLoading.get()) {
             return;
         }
 
         mTaskId = taskId;
-        if (mTaskId == null){
+        if (mTaskId == null) {
             mIsNewTask = true;
             return;
         }
 
-        if (mIsDataLoaded){
+        if (mIsDataLoaded) {
             return;
         }
 
@@ -78,7 +78,7 @@ public class AddEditTaskViewModel extends AndroidViewModel {
         });
     }
 
-    SnackbarMessage getSnackbarMessage(){
+    SnackbarMessage getSnackbarMessage() {
         return mSnackbarMessage;
     }
 
@@ -86,9 +86,9 @@ public class AddEditTaskViewModel extends AndroidViewModel {
         return mTaskUpdate;
     }
 
-    void saveTask(){
+    void saveTask() {
         Task task = new Task(mTitle.get(), mDescription.get());
-        if (task.isEmpty()){
+        if (task.isEmpty()) {
             mSnackbarMessage.setValue(R.string.empty_task_message);
             return;
         }
@@ -100,11 +100,16 @@ public class AddEditTaskViewModel extends AndroidViewModel {
         }
     }
 
-    private void createTask(Task task) {
-
+    private void createTask(Task newTask) {
+        mTasksRepository.saveTask(newTask);
+        mTaskUpdate.call();
     }
 
     private void updateTask(Task task) {
-
+        if (mIsNewTask) {
+            throw new RuntimeException("updateTask(Task task) was called but task is new");
+        }
+        mTasksRepository.saveTask(task);
+        mTaskUpdate.call();
     }
 }

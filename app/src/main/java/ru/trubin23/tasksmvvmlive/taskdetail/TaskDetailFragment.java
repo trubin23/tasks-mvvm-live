@@ -22,8 +22,6 @@ public class TaskDetailFragment extends Fragment {
 
     public static final String ARGUMENT_TASK_ID = "TASK_ID";
 
-    public static final int REQUEST_EDIT_TASK = 1;
-
     private TaskDetailViewModel mTaskDetailViewModel;
 
     public static TaskDetailFragment newInstance(String taskId) {
