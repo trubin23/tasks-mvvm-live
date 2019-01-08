@@ -39,4 +39,7 @@
     <string name="description_hint">Enter your tasks here.</string>
 
     <string name="empty_task_message">Task cannot be empty</string>
+
+    <string name="title_add_task">New task</string>
+    <string name="title_edit_task">Edit task</string>
 </resources>
