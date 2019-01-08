@@ -42,4 +42,7 @@
 
     <string name="title_add_task">New task</string>
     <string name="title_edit_task">Edit task</string>
+
+    <string name="loading">LOADING</string>
+    <string name="statistics_no_tasks">You have no tasks.</string>
 </resources>

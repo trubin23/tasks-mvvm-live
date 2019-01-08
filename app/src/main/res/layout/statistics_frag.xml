@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="ru.trubin23.tasksmvvmlive.addedittask.AddEditTaskViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="@{viewmodel.mDataLoading ? View.VISIBLE : View.GONE}" />
+
+        <LinearLayout
+            android:id="@+id/statistics"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="@{viewmodel.mDataLoading ? View.GONE : View.VISIBLE}">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/statistics_no_tasks"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="@{viewmodel.mEmpty ? View.VISIBLE : View.GONE}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewmodel.mNumberOfActiveTasks}"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="@{viewmodel.mEmpty ? View.GONE : View.VISIBLE}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewmodel.mNumberOfCompletedTasks}"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="@{viewmodel.mEmpty ? View.GONE : View.VISIBLE}" />
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
