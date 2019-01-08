@@ -82,7 +82,7 @@ public class AddEditTaskViewModel extends AndroidViewModel {
         return mSnackbarMessage;
     }
 
-    public SingleLiveEvent<Void> getTaskUpdate() {
+    SingleLiveEvent<Void> getTaskUpdate() {
         return mTaskUpdate;
     }
 

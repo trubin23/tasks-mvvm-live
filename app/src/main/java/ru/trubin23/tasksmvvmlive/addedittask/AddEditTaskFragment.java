@@ -18,12 +18,17 @@ import ru.trubin23.tasksmvvmlive.util.SnackbarUtils;
 
 public class AddEditTaskFragment extends Fragment {
 
-    public static final String ARGUMENT_EDIT_TASK_ID = "EDIT_TASK_ID";
+    private static final String ARGUMENT_EDIT_TASK_ID = "EDIT_TASK_ID";
 
     private AddEditTaskViewModel mViewModel;
 
-    public static AddEditTaskFragment newInstance() {
-        return new AddEditTaskFragment();
+    public static AddEditTaskFragment newInstance(String taskId) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ARGUMENT_EDIT_TASK_ID, taskId);
+
+        AddEditTaskFragment fragment = new AddEditTaskFragment();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Nullable
@@ -69,10 +74,10 @@ public class AddEditTaskFragment extends Fragment {
 
     private void setupActionBar() {
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (actionBar == null){
+        if (actionBar == null) {
             return;
         }
-        if (getArguments()!=null && getArguments().get(ARGUMENT_EDIT_TASK_ID)!=null){
+        if (getArguments() != null && getArguments().get(ARGUMENT_EDIT_TASK_ID) != null) {
             actionBar.setTitle(R.string.title_edit_task);
         } else {
             actionBar.setTitle(R.string.title_add_task);
@@ -80,6 +85,10 @@ public class AddEditTaskFragment extends Fragment {
     }
 
     private void loadData() {
-
+        if (getArguments() != null) {
+            mViewModel.start(getArguments().getString(ARGUMENT_EDIT_TASK_ID));
+        } else {
+            mViewModel.start(null);
+        }
     }
 }
