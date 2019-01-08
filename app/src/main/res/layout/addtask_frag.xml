@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="ru.trubin23.tasksmvvmlive.addedittask.AddEditTaskViewModel" />
+    </data>
+
+    <ru.trubin23.tasksmvvmlive.ScrollChildSwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:enabled="@{viewmodel.dataLoading}"
+        app:refreshing="@{viewmodel.dataLoading}">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/add_task_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"/>
+
+                <EditText
+                    android:id="@+id/add_task_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.constraint.ConstraintLayout>
+
+        </ScrollView>
+
+    </ru.trubin23.tasksmvvmlive.ScrollChildSwipeRefreshLayout>
+
+</layout>
