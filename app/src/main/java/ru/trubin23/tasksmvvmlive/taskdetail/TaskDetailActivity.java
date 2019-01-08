@@ -3,6 +3,7 @@ package ru.trubin23.tasksmvvmlive.taskdetail;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +12,9 @@ import android.support.v7.widget.Toolbar;
 import ru.trubin23.tasksmvvmlive.R;
 import ru.trubin23.tasksmvvmlive.ViewModelFactory;
 import ru.trubin23.tasksmvvmlive.addedittask.AddEditTaskActivity;
-import ru.trubin23.tasksmvvmlive.tasks.TasksViewModel;
+import ru.trubin23.tasksmvvmlive.util.ActivityUtils;
+
+import static ru.trubin23.tasksmvvmlive.addedittask.AddEditTaskActivity.ADD_EDIT_RESULT_OK;
 
 public class TaskDetailActivity extends AppCompatActivity implements TaskDetailNavigator {
 
@@ -26,23 +29,33 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taskdetail_act);
+
+        setupToolbar();
+
+        TaskDetailFragment taskDetailFragment = findOrCreateViewFragment();
+        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                taskDetailFragment, R.id.contentFrame);
+
+        TaskDetailViewModel viewModel = obtainViewModel(this);
+
+        subscribeToNavigationChanges(viewModel);
     }
 
-    void setupToolbar(){
+    void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
         }
     }
 
-    private TaskDetailFragment findOrCreateViewFragment(){
+    private TaskDetailFragment findOrCreateViewFragment() {
         TaskDetailFragment taskDetailFragment = (TaskDetailFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contentFrame);
 
-        if (taskDetailFragment == null){
+        if (taskDetailFragment == null) {
             String taskId = getIntent().getStringExtra(EXTRA_TASK_ID);
             taskDetailFragment = TaskDetailFragment.newInstance(taskId);
         }
@@ -50,10 +63,27 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
         return taskDetailFragment;
     }
 
-    public static TaskDetailViewModel obtainViewModel(FragmentActivity activity){
+    public static TaskDetailViewModel obtainViewModel(FragmentActivity activity) {
         ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
 
         return ViewModelProviders.of(activity, factory).get(TaskDetailViewModel.class);
+    }
+
+    private void subscribeToNavigationChanges(TaskDetailViewModel viewModel) {
+        viewModel.getEditTaskCommand().observe(this,
+                aVoid -> TaskDetailActivity.this.onStartEditTask());
+        viewModel.getDeleteTaskCommand().observe(this,
+                aVoid -> TaskDetailActivity.this.onTaskDeleted());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == REQUEST_EDIT_TASK) {
+            if (resultCode == ADD_EDIT_RESULT_OK) {
+                setResult(EDIT_RESULT_OK);
+                finish();
+            }
+        }
     }
 
     @Override
