@@ -1,10 +1,8 @@
 package ru.trubin23.tasksmvvmlive.addedittask;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -33,17 +31,10 @@ public class AddEditTaskActivity extends AppCompatActivity implements AddEditTas
             actionBar.setDisplayShowHomeEnabled(true);
         }
 
-        AddEditTaskFragment addEditTaskFragment = obtainViewFragment();
-        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                addEditTaskFragment, R.id.contentFrame);
+        findOrCreateViewFragment();
 
         AddEditTaskViewModel viewModel = obtainViewModel(this);
-        viewModel.getTaskUpdate().observe(this, new Observer<Void>() {
-            @Override
-            public void onChanged(@Nullable Void aVoid) {
-                AddEditTaskActivity.this.onTaskSaved();
-            }
-        });
+        viewModel.getTaskUpdate().observe(this, aVoid -> onTaskSaved());
     }
 
     @Override
@@ -64,15 +55,16 @@ public class AddEditTaskActivity extends AppCompatActivity implements AddEditTas
         return ViewModelProviders.of(activity, factory).get(AddEditTaskViewModel.class);
     }
 
-    @NonNull
-    private AddEditTaskFragment obtainViewFragment() {
+    private void findOrCreateViewFragment() {
         AddEditTaskFragment addEditTaskFragment = (AddEditTaskFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contentFrame);
 
         if (addEditTaskFragment == null) {
             String taskId = getIntent().getStringExtra(EXTRA_EDIT_TASK_ID);
             addEditTaskFragment = AddEditTaskFragment.newInstance(taskId);
+
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    addEditTaskFragment, R.id.contentFrame);
         }
-        return addEditTaskFragment;
     }
 }

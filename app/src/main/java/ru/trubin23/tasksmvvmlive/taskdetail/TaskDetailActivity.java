@@ -32,9 +32,7 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
 
         setupToolbar();
 
-        TaskDetailFragment taskDetailFragment = findOrCreateViewFragment();
-        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                taskDetailFragment, R.id.contentFrame);
+        findOrCreateViewFragment();
 
         TaskDetailViewModel viewModel = obtainViewModel(this);
 
@@ -51,16 +49,17 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
         }
     }
 
-    private TaskDetailFragment findOrCreateViewFragment() {
+    private void findOrCreateViewFragment() {
         TaskDetailFragment taskDetailFragment = (TaskDetailFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contentFrame);
 
         if (taskDetailFragment == null) {
             String taskId = getIntent().getStringExtra(EXTRA_TASK_ID);
             taskDetailFragment = TaskDetailFragment.newInstance(taskId);
-        }
 
-        return taskDetailFragment;
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    taskDetailFragment, R.id.contentFrame);
+        }
     }
 
     public static TaskDetailViewModel obtainViewModel(FragmentActivity activity) {

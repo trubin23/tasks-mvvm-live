@@ -109,7 +109,7 @@ public class AddEditTaskViewModel extends AndroidViewModel {
         if (mIsNewTask) {
             throw new RuntimeException("updateTask(Task task) was called but task is new");
         }
-        mTasksRepository.saveTask(task);
+        mTasksRepository.updateTask(task);
         mTaskUpdate.call();
     }
 }
