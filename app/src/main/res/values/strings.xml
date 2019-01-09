@@ -45,4 +45,6 @@
 
     <string name="loading">LOADING</string>
     <string name="statistics_no_tasks">You have no tasks.</string>
+    <string name="statistics_active_tasks">Active tasks: %d</string>
+    <string name="statistics_completed_tasks">Completed tasks: %d</string>
 </resources>
