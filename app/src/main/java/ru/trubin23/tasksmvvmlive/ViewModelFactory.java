@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import ru.trubin23.tasksmvvmlive.addedittask.AddEditTaskViewModel;
 import ru.trubin23.tasksmvvmlive.data.source.TasksRepository;
+import ru.trubin23.tasksmvvmlive.statistics.StatisticsViewModel;
 import ru.trubin23.tasksmvvmlive.taskdetail.TaskDetailViewModel;
 import ru.trubin23.tasksmvvmlive.tasks.TasksViewModel;
 
@@ -49,6 +50,10 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         if (modelClass.isAssignableFrom(AddEditTaskViewModel.class)) {
             //noinspection unchecked
             return (T) new AddEditTaskViewModel(mApplication, mTasksRepository);
+        }
+        if (modelClass.isAssignableFrom(StatisticsViewModel.class)) {
+            //noinspection unchecked
+            return (T) new StatisticsViewModel(mApplication, mTasksRepository);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }

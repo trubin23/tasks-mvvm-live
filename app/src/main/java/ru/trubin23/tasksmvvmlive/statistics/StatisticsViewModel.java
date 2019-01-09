@@ -71,7 +71,7 @@ public class StatisticsViewModel extends AndroidViewModel {
     }
 
     private void updateDataBindingObservables(){
-        mNumberOfCompletedTasks.set(mContext.getString(
+        mNumberOfActiveTasks.set(mContext.getString(
                 R.string.statistics_active_tasks, mNumberOfActiveTasksInt));
         mNumberOfCompletedTasks.set(mContext.getString(
                 R.string.statistics_completed_tasks, mNumberOfCompletedTasksInt));

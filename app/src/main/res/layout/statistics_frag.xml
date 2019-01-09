@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="ru.trubin23.tasksmvvmlive.addedittask.AddEditTaskViewModel" />
+            type="ru.trubin23.tasksmvvmlive.statistics.StatisticsViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
